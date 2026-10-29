@@ -1,0 +1,27 @@
+
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.11
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install Dependencies
+          command: pip install pytest
+
+      - run:
+          name: Run Student Calculator
+          command: python student.py
+
+      - run:
+          name: Run Automated Tests
+          command: pytest -v test_student.py
+
+workflows:
+  student-calculator-pipeline:
+    jobs:
+      - build-and-test
